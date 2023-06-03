@@ -16,6 +16,8 @@ class SistemaSolar {
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
+    this.createStars();
+
     const textureLoader = new THREE.TextureLoader();
     textureLoader.load('./textures/2k_sun.jpg', (texture) => {
 
@@ -33,6 +35,25 @@ class SistemaSolar {
     this.camera.position.z = 5;
 
     window.addEventListener('resize', () => this.resizeCanvas());
+  }
+
+  createStars() {
+    const starCount = 1000;
+    const starColors = [0xFFFFFF, 0x89CFF0, 0xFFA07A];
+
+    for (let i = 0; i < starCount; i++) {
+      const geometry = new THREE.SphereGeometry(Math.random() * 0.07, 16, 16);
+      const material = new THREE.MeshBasicMaterial({ color: starColors[Math.floor(Math.random() * starColors.length)] });
+      const star = new THREE.Mesh(geometry, material);
+
+      star.position.set(
+        (Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 100
+      );
+
+      this.scene.add(star);
+    }
   }
 
   animate() {
