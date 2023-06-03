@@ -36,6 +36,7 @@ class SistemaSolar {
     this.createVenus();
     this.createEarth();
     this.createMars();
+    this.createAsteroidBelt();
 
     this.camera.position.z = 5;
 
@@ -125,6 +126,29 @@ class SistemaSolar {
       this.moon2.position.set(1, 0, 0);
       this.mars.add(this.moon2);
     });
+  }
+
+  createAsteroidBelt() {
+    const asteroidCount = 1000;
+    const innerRadius = 18;
+    const outerRadius = 22;
+
+    for (let i = 0; i < asteroidCount; i++) {
+      const geometry = new THREE.SphereGeometry(Math.random() * 0.05, 16, 16);
+      const material = new THREE.MeshBasicMaterial({ color: 0xCCCCCC });
+      const asteroid = new THREE.Mesh(geometry, material);
+
+      const distance = innerRadius + Math.random() * (outerRadius - innerRadius);
+      const angle = Math.random() * Math.PI * 2;
+
+      asteroid.position.set(
+        distance * Math.cos(angle),
+        (Math.random() - 0.5) * 2,
+        distance * Math.sin(angle)
+      );
+
+      this.scene.add(asteroid);
+    }
   }
 
   animate() {
