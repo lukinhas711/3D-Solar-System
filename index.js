@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 class SistemaSolar {
   constructor() {
@@ -38,7 +39,13 @@ class SistemaSolar {
     this.createMars();
     this.createAsteroidBelt();
 
-    this.camera.position.z = 5;
+    
+    this.camera.position.set(0, 3, 20);
+
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.enableDamping = true;
+    this.controls.dampingFactor = 0.1;
+    this.controls.zoomSpeed = 0.5;
 
     window.addEventListener('resize', () => this.resizeCanvas());
     window.addEventListener('wheel', (event) => this.handleScroll(event));
@@ -194,6 +201,8 @@ class SistemaSolar {
         this.moon2.position.z = 1 * Math.sin(0.009 * performance.now());
       }
     }
+
+    this.controls.update();
 
     this.renderer.render(this.scene, this.camera);
   }
