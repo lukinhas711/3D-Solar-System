@@ -2,13 +2,11 @@ import * as THREE from "three";
 
 class SistemaSolar {
   constructor() {
-    // Obtenha o elemento canvas
     this.canvas = document.getElementById('sistema-solar');
-
-    // Crie a cena
+    // cria a cena
     this.scene = new THREE.Scene();
 
-    // Crie a câmera
+    // cria a camera
     this.camera = new THREE.PerspectiveCamera(
         75,
         this.canvas.clientWidth / this.canvas.clientHeight,
@@ -16,11 +14,11 @@ class SistemaSolar {
         1000
     );
 
-    // Crie o renderizador e configure-o para usar o canvas
+    // Cria o renderizador e configure-o para usar o canvas
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
-    // Crie um cubo
+    // Cria um cubo
     const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     this.cube = new THREE.Mesh(geometry, material);
@@ -28,21 +26,21 @@ class SistemaSolar {
 
     this.camera.position.z = 5;
 
-    // Redimensione o canvas
+    // Redimensiona o canvas
     window.addEventListener('resize', () => this.resizeCanvas());
 
-    // Inicie a animação
+    // Inicia a animação
     this.animate();
 }
 
   animate() {
     requestAnimationFrame(() => this.animate());
 
-    // Rotacione o cubo
+    // Rotaciona o cubo
     this.cube.rotation.x += 0.01;
     this.cube.rotation.y += 0.01;
 
-    // Renderize a cena
+    // Renderiza a cena
     this.renderer.render(this.scene, this.camera);
   }
 
