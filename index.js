@@ -17,7 +17,7 @@ class SistemaSolar {
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
-    this.createStars();
+    // this.createStars();
     this.createSun();
 
     this.createMercury();
@@ -91,7 +91,7 @@ class SistemaSolar {
       const geometry = new THREE.SphereGeometry(0.3, 32, 32);
       const material = new THREE.MeshBasicMaterial({ map: texture });
       this.venus = new THREE.Mesh(geometry, material);
-      this.venus.position.set(5, 0, 0); // 8 é aproximadamente 800px quando projetado na tela
+      this.venus.position.set(5, 0, 0);
       this.scene.add(this.venus);
     });
   }
@@ -102,7 +102,7 @@ class SistemaSolar {
       const geometry = new THREE.SphereGeometry(0.3, 32, 32);
       const material = new THREE.MeshBasicMaterial({ map: texture });
       this.earth = new THREE.Mesh(geometry, material);
-      this.earth.position.set(12, 0, 0); // 12 é aproximadamente 1200px quando projetado na tela
+      this.earth.position.set(12, 0, 0);
       this.scene.add(this.earth);
 
       textureLoader.load('./textures/2k_moon.jpg', (moonTexture) => {
@@ -121,7 +121,7 @@ class SistemaSolar {
       const geometry = new THREE.SphereGeometry(0.15, 32, 32);
       const material = new THREE.MeshBasicMaterial({ map: texture });
       this.mars = new THREE.Mesh(geometry, material);
-      this.mars.position.set(16, 0, 0); // 16 é aproximadamente 1600px quando projetado na tela
+      this.mars.position.set(16, 0, 0);
       this.scene.add(this.mars);
 
       const moonMaterial = new THREE.MeshBasicMaterial({ color: 0xCCCCCC });
