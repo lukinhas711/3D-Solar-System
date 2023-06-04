@@ -18,20 +18,7 @@ class SistemaSolar {
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
 
     this.createStars();
-
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('./textures/2k_sun.jpg', (texture) => {
-
-      const geometry = new THREE.SphereGeometry(2, 32, 32);
-      const material = new THREE.MeshBasicMaterial({ map: texture });
-      this.sun = new THREE.Mesh(geometry, material);
-      this.scene.add(this.sun);
-
-      this.camera.position.set(0, 3, 5);
-      this.camera.lookAt(new THREE.Vector3(0, 1, 0));
-
-      this.animate();
-    });
+    this.createSun();
 
     this.createMercury();
     this.createVenus();
@@ -39,7 +26,6 @@ class SistemaSolar {
     this.createMars();
     this.createAsteroidBelt();
 
-    
     this.camera.position.set(0, 3, 20);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -51,6 +37,7 @@ class SistemaSolar {
     window.addEventListener('wheel', (event) => this.handleScroll(event));
     window.addEventListener('keydown', (event) => this.handleKeydown(event));
   }
+
 
   createStars() {
     const starCount = 1000;
@@ -71,13 +58,29 @@ class SistemaSolar {
     }
   }
 
+  createSun() {
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load('./textures/2k_sun.jpg', (texture) => {
+
+      const geometry = new THREE.SphereGeometry(2, 32, 32);
+      const material = new THREE.MeshBasicMaterial({ map: texture });
+      this.sun = new THREE.Mesh(geometry, material);
+      this.scene.add(this.sun);
+
+      this.camera.position.set(0, 3, 5);
+      this.camera.lookAt(new THREE.Vector3(0, 1, 0));
+
+      this.animate();
+    });
+  }
+
   createMercury() {
     const textureLoader = new THREE.TextureLoader();
     textureLoader.load('./textures/2k_mercury.jpg', (texture) => {
       const geometry = new THREE.SphereGeometry(0.1, 32, 32);
       const material = new THREE.MeshBasicMaterial({ map: texture });
       this.mercury = new THREE.Mesh(geometry, material);
-      this.mercury.position.set(4, 0, 0);
+      this.mercury.position.set(28, 0, 0);
       this.scene.add(this.mercury);
     });
   }
