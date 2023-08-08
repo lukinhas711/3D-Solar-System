@@ -24,7 +24,11 @@ class SistemaSolar {
     this.createVenus();
     this.createEarth();
     this.createMars();
-    this.createAsteroidBelt();
+    // this.createAsteroidBelt();
+    this.createJupiter()
+    this.createSaturn()
+    this.createUranus()
+    this.createNeptune()
 
     this.camera.position.set(0, 3, 20);
 
@@ -138,28 +142,90 @@ class SistemaSolar {
     });
   }
 
-  createAsteroidBelt() {
-    const asteroidCount = 1000;
-    const innerRadius = 18;
-    const outerRadius = 22;
+  // createAsteroidBelt() {
+  //   const asteroidCount = 1000;
+  //   const innerRadius = 18;
+  //   const outerRadius = 22;
 
-    for (let i = 0; i < asteroidCount; i++) {
-      const geometry = new THREE.SphereGeometry(Math.random() * 0.05, 16, 16);
-      const material = new THREE.MeshBasicMaterial({ color: 0xCCCCCC });
-      const asteroid = new THREE.Mesh(geometry, material);
+  //   for (let i = 0; i < asteroidCount; i++) {
+  //     const geometry = new THREE.SphereGeometry(Math.random() * 0.05, 16, 16);
+  //     const material = new THREE.MeshBasicMaterial({ color: 0xCCCCCC });
+  //     const asteroid = new THREE.Mesh(geometry, material);
 
-      const distance = innerRadius + Math.random() * (outerRadius - innerRadius);
-      const angle = Math.random() * Math.PI * 2;
+  //     const distance = innerRadius + Math.random() * (outerRadius - innerRadius);
+  //     const angle = Math.random() * Math.PI * 2;
 
-      asteroid.position.set(
-        distance * Math.cos(angle),
-        (Math.random() - 0.5) * 2,
-        distance * Math.sin(angle)
-      );
+  //     asteroid.position.set(
+  //       distance * Math.cos(angle),
+  //       (Math.random() - 0.5) * 2,
+  //       distance * Math.sin(angle)
+  //     );
 
-      this.scene.add(asteroid);
-    }
-  }
+  //     this.scene.add(asteroid);
+  //   }
+  // }
+
+  createJupiter() {
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.load('./textures/2k_jupiter.jpg', (texture) => {
+    const geometry = new THREE.SphereGeometry(0.9, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    this.jupiter = new THREE.Mesh(geometry, material);
+    this.jupiter.position.set(20, 0, 0);
+    this.scene.add(this.jupiter);
+  });
+}
+
+createSaturn() {
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.load('./textures/2k_saturn.jpg', (texture) => {
+    const geometry = new THREE.SphereGeometry(0.8, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    this.saturn = new THREE.Mesh(geometry, material);
+    this.saturn.position.set(24, 0, 0);
+    this.scene.add(this.saturn);
+
+    // Create Saturn's Ring
+    // const ringTexture = new THREE.TextureLoader('./textures/2k_saturn_ring.jpg');
+    // const ringGeometry = new THREE.RingGeometry(1, 2, 64);
+    // const ringMaterial = new THREE.MeshBasicMaterial({ map: ringTexture, side: THREE.DoubleSide });
+    // this.ring = new THREE.Mesh(ringGeometry, ringMaterial);
+    // this.saturn.add(this.ring);
+  });
+}
+
+createUranus() {
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.load('./textures/2k_uranus.jpg', (texture) => {
+    const geometry = new THREE.SphereGeometry(0.6, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    this.uranus = new THREE.Mesh(geometry, material);
+    this.uranus.position.set(28, 0, 0);
+    this.scene.add(this.uranus);
+  });
+}
+
+createNeptune() {
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.load('./textures/2k_neptune.jpg', (texture) => {
+    const geometry = new THREE.SphereGeometry(0.6, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    this.neptune = new THREE.Mesh(geometry, material);
+    this.neptune.position.set(32, 0, 0);
+    this.scene.add(this.neptune);
+  });
+}
+
+createPluto() {
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.load('./textures/2k_pluto.jpg', (texture) => {
+    const geometry = new THREE.SphereGeometry(0.3, 32, 32);
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    this.pluto = new THREE.Mesh(geometry, material);
+    this.pluto.position.set(36, 0, 0);
+    this.scene.add(this.pluto)
+  })
+}
 
   animate() {
     requestAnimationFrame(() => this.animate());
@@ -204,6 +270,40 @@ class SistemaSolar {
         this.moon2.position.z = 1 * Math.sin(0.009 * performance.now());
       }
     }
+
+    if (this.jupiter) {
+      this.jupiter.rotation.y += 0.01;
+      this.jupiter.position.x = 20 * Math.cos(0.0003 * performance.now());
+      this.jupiter.position.z = 20 * Math.sin(0.0003 * performance.now());
+    }
+  
+    if (this.saturn) {
+      this.saturn.rotation.y += 0.01;
+      this.saturn.position.x = 24 * Math.cos(0.00025 * performance.now());
+      this.saturn.position.z = 24 * Math.sin(0.00025 * performance.now());
+  
+      if (this.ring) {
+        this.ring.rotation.x = 1.2; // Tilt Ring
+      }
+    }
+  
+    if (this.uranus) {
+      this.uranus.rotation.y += 0.01;
+      this.uranus.position.x = 28 * Math.cos(0.00023 * performance.now());
+      this.uranus.position.z = 28 * Math.sin(0.00023 * performance.now());
+    }
+  
+    if (this.neptune) {
+      this.neptune.rotation.y += 0.01;
+      this.neptune.position.x = 32 * Math.cos(0.00022 * performance.now());
+      this.neptune.position.z = 32 * Math.sin(0.00022 * performance.now());
+    }
+  
+    if (this.pluto) {
+      this.pluto.rotation.y += 0.01;
+      this.pluto.position.x = 36 * Math.cos(0.0002 * performance.now());
+      this.pluto.position.z = 36 * Math.sin(0.0002 * performance.now());
+    }  
 
     this.controls.update();
 
